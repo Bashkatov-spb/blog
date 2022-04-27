@@ -1,0 +1,100 @@
+.sign-up {
+  padding: 48px 32px;
+  &__container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    margin: 50px auto;
+  }
+  &__title {
+    text-align: center;
+    margin: 0 0 20px;
+  }
+  &__control {
+    margin-bottom: 10px;
+    position: relative;
+    & label {
+      color: black;
+      display: block;
+      margin-bottom: 3px;
+    }
+    & input {
+      border: 2px solid #f0f0f0;
+      border-radius: 4px;
+      display: block;
+      width: 100%;
+      padding: 5px 10px;
+      font-size: 14px;
+      &:focus {
+        outline: 0;
+        border-color: #777;
+      }
+      &::placeholder {
+        color: rgba(191, 191, 191, 1);
+      }
+    }
+    &.succes input {
+      border-color: green;
+    }
+    &.error input {
+      border-color: red;
+    }
+    &.error small {
+      display: block;
+    }
+    & small {
+      color: red;
+      position: relative;
+      left: 0;
+      display: block;
+    }
+  }
+  &__agree {
+    display: flex;
+    margin-top: 32px;
+    margin-bottom: 25px;
+    position: relative;
+    &-error {
+      color:  red;
+    }
+    &-checkbox {
+      margin-top: 4px;
+      width: 16px;
+      height: 16px;
+    }
+    &-text {
+      margin-left: 10px;
+    }
+    &::before {
+      content: '';
+      display: block;
+      width: 336px;
+      height: 1px;
+      background-color: rgba(232, 232, 232, 0.5);
+      position: absolute;
+      top: -11px;
+    }
+  }
+  &__btn {
+    border: none;
+    background-color: rgba(24, 144, 255, 1);
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 10px rgb(7, 92, 92);
+    }
+  }
+  &__sign-in {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+

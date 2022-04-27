@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #EBEEF3;
+}
+
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  &__pagination {
+    margin-top: 25px;
+    width: auto;
+    text-align: center;
+  }
+}
+
+.full-article {
+  min-height: 400px;
+}
+
+.active {
+  color: rgba(82, 196, 26, 1);
+  border: 1px solid rgba(82, 196, 26, 1);
+}

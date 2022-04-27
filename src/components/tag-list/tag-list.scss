@@ -1,0 +1,12 @@
+.main__article {
+  &-tags {
+    display: flex;
+    margin: 10px 0;
+  }
+  &-tag {
+    padding: 1px 7px;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-right: 8px;
+  }
+}
