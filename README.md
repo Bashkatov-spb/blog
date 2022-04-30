@@ -1,1 +1,1 @@
-https://blog-24u4xnwk2-tissottwo-gmailcom.vercel.app
+https://blog-oo8xzquwy-tissottwo-gmailcom.vercel.app
