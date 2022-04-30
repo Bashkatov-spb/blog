@@ -12,7 +12,7 @@ const Header = ({ userData, onLogout, isLoggedIn, getArticles }) => {
         <div className="header__profile-info">
           <h3 className="header__profile-name">{userData.username}</h3>
           <Link to="/profile">
-            <div className="header__profile-img"></div>
+            <div className="header__profile-img" style={{ backgroundImage: `url(${userData.image})` }}></div>
           </Link>
         </div>
         <Link to="/" onClick={() => onLogout()} className="header__log-out">

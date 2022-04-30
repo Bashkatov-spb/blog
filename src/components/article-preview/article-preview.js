@@ -26,6 +26,7 @@ const ArticlePreview = ({ data, isLoggedIn }) => {
 
   useEffect(() => {
     setIsFavorited(data.favorited);
+    setFavoritesCount(data.favoritesCount);
   }, [data]);
 
   return (

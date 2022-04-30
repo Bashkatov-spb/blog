@@ -92,23 +92,26 @@ const App = () => {
           <Route path="/" render={() => articleList} exact />
           <Route path="/articles" render={() => articleList} exact />
           <Route
-            path="/articles/:id"
+            path="/articles/:slug"
             render={({ match }) => {
-              const { id } = match.params;
+              const { slug } = match.params;
               return (
                 <Article
                   isLoggedIn={isLoggedIn}
                   userData={userData}
                   articlesData={articlesData}
                   updateData={updateData}
-                  slug={id}
+                  slug={slug}
                 />
               );
             }}
           />
           <Route path="/sign-in" render={() => <FormSignIn isLoggedIn={isLoggedIn} checkUserAuth={checkUserAuth} />} />
           <Route path="/sign-up" component={FormSignUp} />
-          <Route path="/profile" render={() => <EditProfile getInfoAboutLogin={getInfoAboutLogin} />} />
+          <Route
+            path="/profile"
+            render={() => <EditProfile userData={userData} getInfoAboutLogin={getInfoAboutLogin} />}
+          />
           <Route path="/new-article" render={() => <FormCreateArticle updateData={updateData} />} />
           <Route
             path="/edit-article/:id"

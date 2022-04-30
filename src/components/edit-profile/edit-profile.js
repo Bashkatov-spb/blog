@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './edit-profile.scss';
 import { Redirect } from 'react-router-dom';
 
 import BlogService from '../../services/blog-services';
 
-const EditProfile = ({ getInfoAboutLogin }) => {
+const EditProfile = ({ getInfoAboutLogin, userData }) => {
   const service = new BlogService();
+
   const {
     register,
     handleSubmit,
@@ -33,6 +34,7 @@ const EditProfile = ({ getInfoAboutLogin }) => {
               })}
               type="text"
               placeholder="Username"
+              defaultValue={userData !== null ? userData.username : ''}
             ></input>
             {errors?.username && <small>{errors?.username?.message || 'Error'}</small>}
           </div>
@@ -47,6 +49,7 @@ const EditProfile = ({ getInfoAboutLogin }) => {
               type="text"
               id="email"
               placeholder="Email address"
+              defaultValue={userData !== null ? userData.email : ''}
             ></input>
             {errors?.email && <small>{errors?.email?.message || 'Введен некорректный Email'}</small>}
           </div>
@@ -74,6 +77,7 @@ const EditProfile = ({ getInfoAboutLogin }) => {
               type="text"
               id="avatar"
               placeholder="Avatar image"
+              defaultValue={userData !== null ? userData.image : ''}
             ></input>
             {errors?.image && <small>{errors?.image?.message || 'Введите корректный URL'}</small>}
           </div>

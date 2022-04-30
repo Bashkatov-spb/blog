@@ -18,7 +18,6 @@ const FormEditArticle = ({ articlesData, slug, updateData }) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitSuccessful },
-    reset,
   } = useForm({
     mode: 'onBlur',
   });

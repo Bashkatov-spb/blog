@@ -1,5 +1,6 @@
 .header {
-  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
   background-color: white;
   display: flex;
   justify-content: space-between;
@@ -26,7 +27,8 @@
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      background: url('https://source.unsplash.com/random/50x50');
+      background-position: center;
+      background-size: cover;
     }
   }
   &__create-article {

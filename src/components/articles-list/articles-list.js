@@ -3,9 +3,9 @@ import { Pagination } from 'antd';
 
 import ArticlePreview from '../article-preview/article-preview';
 
-const ArticlesList = ({ articlesData, isLoggedIn, updatePageNumber, currentPage, articlesCount }) => {
+const ArticlesList = ({ articlesData, isLoggedIn, updatePageNumber, currentPage, articlesCount, updateData }) => {
   const articles = articlesData.map((item, idx) => {
-    return <ArticlePreview key={idx} data={item} isLoggedIn={isLoggedIn} />;
+    return <ArticlePreview key={idx} data={item} isLoggedIn={isLoggedIn} updateData={updateData} />;
   });
 
   return (
