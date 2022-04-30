@@ -34,12 +34,6 @@
         color: rgba(191, 191, 191, 1);
       }
     }
-    &.succes input {
-      border-color: green;
-    }
-    &.error input {
-      border-color: red;
-    }
     &.error small {
       display: none;
     }
