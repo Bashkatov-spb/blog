@@ -25,12 +25,6 @@ export default class BlogService {
       },
       body: JSON.stringify(data),
     });
-    if (res.status === 422) {
-      alert('Неправильный пароль или email');
-    }
-    if (!res.ok) {
-      throw new Error(res.status);
-    }
     return await res.json();
   }
 
@@ -86,7 +80,13 @@ export default class BlogService {
   };
 
   deleteArticle = async (slug) => {
-    await this.getResource(`${BASE_API}/articles/${slug}`, 'DELETE');
+    await fetch(`${BASE_API}/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    });
   };
 
   setLike = async (item) => {

@@ -59,9 +59,9 @@ const FormCreateArticle = ({ updateData }) => {
   };
 
   const onSubmit = async (data) => {
-    updateData();
     const articleData = { ...data, tagList: tags };
     await service.postArticle(articleData);
+    updateData();
     reset();
   };
   if (!isSubmitSuccessful) {

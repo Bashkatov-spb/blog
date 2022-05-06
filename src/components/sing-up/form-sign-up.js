@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -6,6 +6,12 @@ import BlogService from '../../services/blog-services';
 import './form-sign-up.scss';
 
 const FormSignUp = () => {
+  const [firstPassword, setFirstPassword] = useState(null);
+  const [secondPassword, setSecondPassword] = useState(null);
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorUsername, setErrorUsername] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
   const service = new BlogService();
   const {
     register,
@@ -15,12 +21,31 @@ const FormSignUp = () => {
   } = useForm({
     mode: 'onBlur',
   });
+
   const onSubmit = (data) => {
-    service.registerUser(data);
-    reset();
+    if (firstPassword !== secondPassword) {
+      setErrorPassword(true);
+    }
+    if (firstPassword === secondPassword) {
+      service.registerUser(data).then((res) => {
+        if ('errors' in res) {
+          if ('username' in res.errors) {
+            console.log('u');
+            setErrorUsername(true);
+          }
+          if ('email' in res.errors) {
+            console.log('e');
+            setErrorEmail(true);
+          }
+        }
+        if ('user' in res) {
+          setIsRegister(true);
+        }
+      });
+    }
   };
 
-  if (!isSubmitSuccessful) {
+  if (!isRegister) {
     return (
       <div className="sign-up__container">
         <form onSubmit={handleSubmit(onSubmit)} className="sign-up">
@@ -35,8 +60,10 @@ const FormSignUp = () => {
               })}
               type="text"
               placeholder="Username"
+              onFocus={() => setErrorUsername(false)}
             ></input>
             {errors?.username && <small>{errors?.username?.message || 'Error'}</small>}
+            {errorUsername && <small>Пользователь с таким именем уже существует</small>}
           </div>
           <div className="sign-up__control">
             <label htmlFor="email">Email address</label>
@@ -49,8 +76,10 @@ const FormSignUp = () => {
               type="text"
               id="email"
               placeholder="Email address"
+              onFocus={() => setErrorEmail(false)}
             ></input>
             {errors?.email && <small>{errors?.email?.message || 'Введен некорректный Email'}</small>}
+            {errorEmail && <small>Пользователь с таким Email уже существует</small>}
           </div>
           <div className="sign-up__control">
             <label htmlFor="password">Password</label>
@@ -58,11 +87,14 @@ const FormSignUp = () => {
               {...register('password', {
                 required: 'Поле обязятельно к заполнению',
                 maxLength: { value: 40, message: 'Максимум 40 символов' },
-                minLength: { value: 6, message: 'Минимум 6 символа' },
+                minLength: { value: 6, message: 'Минимум 6 символов' },
               })}
               type="password"
               placeholder="Password"
+              onChange={(e) => setFirstPassword(e.target.value)}
+              onFocus={() => setErrorPassword(false)}
             ></input>
+            {errorPassword && <small>Пароли должны совпадать</small>}
             {errors?.password && (
               <small>{errors?.password?.message || 'Длина пароля должна быть не менее 6 символов'}</small>
             )}
@@ -73,11 +105,14 @@ const FormSignUp = () => {
               {...register('password2', {
                 required: 'Поле обязятельно к заполнению',
                 maxLength: { value: 40, message: 'Максимум 40 символов' },
-                minLength: { value: 6, message: 'Минимум 6 символа' },
+                minLength: { value: 6, message: 'Минимум 6 символов' },
               })}
               type="password"
               placeholder="Password"
+              onChange={(e) => setSecondPassword(e.target.value)}
+              onFocus={() => setErrorPassword(false)}
             ></input>
+            {errorPassword && <small>Пароли должны совпадать</small>}
             {errors?.password2 && <small>{errors?.password2?.message || 'Пароли должны совпадать'}</small>}
           </div>
           <div className="sign-up__agree">

@@ -36,7 +36,7 @@ const App = () => {
   };
 
   const getArticles = (currentPage) => {
-    return service.getArticles(currentPage).then((res) => {
+    service.getArticles(currentPage).then((res) => {
       setArticlesData(res.articles);
       setArticlesCount(res.articlesCount);
       setIsLoading(false);
@@ -91,32 +91,29 @@ const App = () => {
         <main className="main">
           <Route path="/" render={() => articleList} exact />
           <Route path="/articles" render={() => articleList} exact />
+          <Route path="/sign-in" render={() => <FormSignIn isLoggedIn={isLoggedIn} checkUserAuth={checkUserAuth} />} />
+          <Route path="/sign-up" component={FormSignUp} />
           <Route
             path="/articles/:slug"
-            render={({ match }) => {
-              const { slug } = match.params;
+            render={() => {
               return (
                 <Article
                   isLoggedIn={isLoggedIn}
                   userData={userData}
                   articlesData={articlesData}
                   updateData={updateData}
-                  slug={slug}
                 />
               );
             }}
           />
-          <Route path="/sign-in" render={() => <FormSignIn isLoggedIn={isLoggedIn} checkUserAuth={checkUserAuth} />} />
-          <Route path="/sign-up" component={FormSignUp} />
           <Route
             path="/profile"
             render={() => <EditProfile userData={userData} getInfoAboutLogin={getInfoAboutLogin} />}
           />
           <Route path="/new-article" render={() => <FormCreateArticle updateData={updateData} />} />
           <Route
-            path="/edit-article/:id"
-            render={({ match }) => {
-              const { id } = match.params;
+            path="/edit-article/:slug"
+            render={() => {
               return (
                 <FormEditArticle
                   getArticles={getArticles}
@@ -124,7 +121,6 @@ const App = () => {
                   userData={userData}
                   articlesData={articlesData}
                   updateData={updateData}
-                  slug={id}
                 />
               );
             }}

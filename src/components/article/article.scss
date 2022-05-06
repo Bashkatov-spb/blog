@@ -49,6 +49,7 @@
     text-align: end;
   }
   &-edit {
+    display: flex;
     position: absolute;
     right: 0;
     bottom: -50px;
@@ -83,7 +84,8 @@
   }
   &-text {
     width: 550px;
-    word-break: break-all
+    word-break: break-all;
+    padding: 20px;
   }
   &-ask {
     &-window {

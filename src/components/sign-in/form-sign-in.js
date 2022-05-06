@@ -7,6 +7,7 @@ import BlogService from '../../services/blog-services';
 
 const FormSignIn = ({ checkUserAuth, isLoggedIn }) => {
   const service = new BlogService();
+  const [error, setError] = useState(false);
 
   const {
     register,
@@ -17,6 +18,9 @@ const FormSignIn = ({ checkUserAuth, isLoggedIn }) => {
 
   const onSubmit = async (data) => {
     const res = await service.getUserToken(data);
+    if ('errors' in res) {
+      setError(true);
+    }
     localStorage.setItem('token', res.user.token);
     checkUserAuth(res.user);
     reset();
@@ -33,8 +37,10 @@ const FormSignIn = ({ checkUserAuth, isLoggedIn }) => {
               {...register('email', { required: 'Поле обязятельно к заполнению' })}
               type="email"
               placeholder="Email address"
+              onFocus={() => setError(false)}
             ></input>
             {errors?.email && <small>{errors?.email?.message || 'Error'}</small>}
+            {error && <small>Неправильный логин или пароль</small>}
           </div>
           <div className="sign-in__control">
             <label htmlFor="password">Password</label>
@@ -42,8 +48,10 @@ const FormSignIn = ({ checkUserAuth, isLoggedIn }) => {
               {...register('password', { required: 'Поле обязятельно к заполнению' })}
               type="password"
               placeholder="Password"
+              onFocus={() => setError(false)}
             ></input>
             {errors?.password && <small>{errors?.password?.message || 'Error'}</small>}
+            {error && <small>Неправильный логин или пароль</small>}
           </div>
           <button type="submit" className="sign-in__btn">
             Login

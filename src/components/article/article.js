@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 import TagList from '../tag-list/tag-list';
 import BlogService from '../../services/blog-services';
 import './article.scss';
 import Loader from '../loader/loader';
 
-const Article = ({ slug, articlesData, userData, isLoggedIn, updateData }) => {
+const Article = ({ articlesData, userData, isLoggedIn, updateData }) => {
+  let { slug } = useParams();
   const service = new BlogService();
-  const [showModalWindow, setShowModalWindow] = useState(false);
   const [articleData, setArticleData] = useState(null);
+  const [showModalWindow, setShowModalWindow] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(null);
   const [isFavorited, setIsFavorited] = useState(null);
 
@@ -38,9 +41,10 @@ const Article = ({ slug, articlesData, userData, isLoggedIn, updateData }) => {
     setIsFavorited(res.article.favorited);
   };
 
-  const deleteArticle = async () => {
-    updateData();
+  const deleteArticle = async (slug) => {
     await service.deleteArticle(slug);
+    console.log('deleted');
+    updateData();
   };
   if (articleData !== null) {
     const { title, tagList, author, createdAt, body } = articleData;
@@ -86,7 +90,7 @@ const Article = ({ slug, articlesData, userData, isLoggedIn, updateData }) => {
                     No
                   </button>
                   <Link to="/articles">
-                    <button onClick={() => deleteArticle()} className="main__article-ask-yes">
+                    <button onClick={() => deleteArticle(slug)} className="main__article-ask-yes">
                       Yes
                     </button>
                   </Link>
@@ -101,7 +105,8 @@ const Article = ({ slug, articlesData, userData, isLoggedIn, updateData }) => {
           </div>
         </div>
         <div className="main__article-text">
-          <p>{body}</p>
+          <ReactMarkdown>{body}</ReactMarkdown>
+          <p></p>
         </div>
       </div>
     );
