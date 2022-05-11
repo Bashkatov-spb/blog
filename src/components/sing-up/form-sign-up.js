@@ -30,11 +30,9 @@ const FormSignUp = () => {
       service.registerUser(data).then((res) => {
         if ('errors' in res) {
           if ('username' in res.errors) {
-            console.log('u');
             setErrorUsername(true);
           }
           if ('email' in res.errors) {
-            console.log('e');
             setErrorEmail(true);
           }
         }

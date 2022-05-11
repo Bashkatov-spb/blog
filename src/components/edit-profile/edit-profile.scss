@@ -35,13 +35,13 @@
       }
     }
     &.error small {
-      display: none;
+      display: block;
     }
     & small {
       color: red;
       position: relative;
       left: 0;
-      display: none;
+      display: block;
     }
   }
   &__btn {
